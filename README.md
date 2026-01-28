@@ -48,6 +48,11 @@ So we built DashVoice.
 
 ## Screenshots
 
+### Voice Control in Action
+| Listening | Processing |
+|-----------|------------|
+| ![Listening](assets/screenshots/21-voice-response.jpg) | ![Processing](assets/screenshots/20-voice-listening.jpg) |
+
 ### Onboarding
 | Welcome | Connect to HA | Wake Word Selection |
 |---------|---------------|---------------------|
