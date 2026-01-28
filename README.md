@@ -48,7 +48,43 @@ So we built DashVoice.
 
 ## Screenshots
 
-*Coming soon*
+### Onboarding
+| Welcome | Connect to HA | Wake Word Selection |
+|---------|---------------|---------------------|
+| ![Welcome](assets/screenshots/01-welcome.png) | ![Connection](assets/screenshots/04-connection.png) | ![Wake Word](assets/screenshots/08-wake-word.png) |
+
+### Voice Configuration
+| Voice Processing | TTS & Agent | Hotword Import |
+|------------------|-------------|----------------|
+| ![Voice Processing](assets/screenshots/07-voice-processing.png) | ![Voice Agent](assets/screenshots/11-voice-agent.png) | ![Hotwords](assets/screenshots/12-hotwords.png) |
+
+### Settings
+| Home Assistant | Presence Detection | MQTT |
+|----------------|-------------------|------|
+| ![Settings HA](assets/screenshots/17-settings-full.png) | ![Presence](assets/screenshots/18-settings-presence.png) | ![MQTT](assets/screenshots/19-settings-mqtt.png) |
+
+<details>
+<summary>View all onboarding screenshots</summary>
+
+| Step | Screenshot |
+|------|------------|
+| Welcome | ![](assets/screenshots/01-welcome.png) |
+| Permissions | ![](assets/screenshots/02-permissions.png) |
+| Device Discovery | ![](assets/screenshots/03-discovery.png) |
+| HA Connection | ![](assets/screenshots/04-connection.png) |
+| Authentication | ![](assets/screenshots/05-authentication-instructions.png) |
+| Auth Success | ![](assets/screenshots/05-authentication-success.png) |
+| Device Name | ![](assets/screenshots/06-device-name.png) |
+| Voice Processing | ![](assets/screenshots/07-voice-processing.png) |
+| Wake Word | ![](assets/screenshots/08-wake-word.png) |
+| Voice Enrollment | ![](assets/screenshots/09-voice-enrollment.png) |
+| Voice Output | ![](assets/screenshots/10-voice-output.png) |
+| Conversation Agent | ![](assets/screenshots/11-voice-agent.png) |
+| Hotword Import | ![](assets/screenshots/12-hotwords.png) |
+| Dashboard Setup | ![](assets/screenshots/13-dashboard-screensaver.png) |
+| Complete | ![](assets/screenshots/14-complete.png) |
+
+</details>
 
 ---
 
