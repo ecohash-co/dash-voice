@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: FAQ
+    url: https://github.com/ecohash-co/dash-voice/blob/main/FAQ.md
+    about: Check the FAQ before opening an issue
+  - name: Discussions
+    url: https://github.com/ecohash-co/dash-voice/discussions
+    about: Ask questions and discuss ideas with the community
