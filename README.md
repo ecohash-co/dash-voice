@@ -6,6 +6,14 @@ DashVoice is a privacy-focused voice assistant for Android tablets that integrat
 
 [![Google Play](https://img.shields.io/badge/Google_Play-Coming_Soon-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
 
+<p align="center">
+  <a href="https://youtu.be/f7RMHgUMX_c">
+    <img src="https://img.youtube.com/vi/f7RMHgUMX_c/maxresdefault.jpg" alt="DashVoice Demo" width="600">
+  </a>
+  <br>
+  <strong>▶️ Watch the demo</strong>
+</p>
+
 ---
 
 ## Why DashVoice?
