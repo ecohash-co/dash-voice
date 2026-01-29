@@ -34,6 +34,7 @@ Tap **Get Started** to begin.
 Grant the required permissions:
 - **Microphone** - Required for wake word detection and voice commands
 - **Camera** (optional) - For QR code scanning during setup
+- **Notifications** - So wake word detection can run in the background
 
 ### 2.3 Connect to Home Assistant
 
