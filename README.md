@@ -1,10 +1,11 @@
 # DashVoice
 
-**Transform any Android tablet into a smart home voice assistant and dashboard.**
+**Transform any Android tablet into a smart home voice assistant, dashboard, and multiroom speaker.**
 
-DashVoice is a privacy-focused voice assistant for Android tablets that integrates with [Home Assistant](https://www.home-assistant.io/). Turn an old tablet into a wall-mounted smart home controller with always-on wake word detection, voice commands, and a customizable dashboard.
+DashVoice is a privacy-focused voice assistant for Android tablets that integrates with [Home Assistant](https://www.home-assistant.io/) and [Music Assistant](https://music-assistant.io/). Turn an old tablet into a wall-mounted smart home controller with always-on wake word detection, voice commands, a customizable dashboard, and synchronized multiroom audio.
 
-[![Google Play](https://img.shields.io/badge/Google_Play-Coming_Soon-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
+[![Google Play](https://img.shields.io/badge/Google_Play-Early_Access-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
+[![Android](https://img.shields.io/badge/Android-8.0%2B-blue?style=for-the-badge&logo=android)](https://developer.android.com/)
 
 <p align="center">
   <a href="https://youtu.be/f7RMHgUMX_c">
@@ -22,6 +23,8 @@ DashVoice was born out of frustration. For years, we used [Fully Kiosk Browser](
 
 We wanted to say "Hey Jarvis, turn on the lights" and have it just work. No cloud services, no monthly fees, no privacy concerns. Just a tablet on the wall that listens for a wake word and controls our smart home.
 
+Then we wanted music. Not just on one tablet, but synchronized across every room. So we added [SendSpin](https://github.com/music-assistant/aiosendspin) multiroom audio, and now every DashVoice tablet is also a speaker in your whole-home audio system.
+
 So we built DashVoice.
 
 ---
@@ -29,28 +32,47 @@ So we built DashVoice.
 ## Features
 
 ### Voice Control
-- **Custom wake word support** - "Hey Jarvis", "Okay Nabu", and more (fully on-device via [openWakeWord](https://github.com/dscripka/openWakeWord))
+- **Custom wake words** - "Hey Jarvis", "Okay Nabu", and more (fully on-device via [openWakeWord](https://github.com/dscripka/openWakeWord))
 - **On-device speech recognition** - Using [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), or leverage the [Wyoming protocol](https://www.home-assistant.io/integrations/wyoming/) for [Home Assistant's voice pipeline](https://www.home-assistant.io/voice_control/)
 - **Natural language commands** - Via [Home Assistant Conversation API](https://www.home-assistant.io/integrations/conversation/)
 - **High-quality TTS** - Via [Piper](https://github.com/rhasspy/piper) or OpenAI-compatible endpoints like [Kokoro](https://github.com/remsky/Kokoro-FastAPI)
 
+### Multiroom Audio (SendSpin)
+- **[Music Assistant](https://music-assistant.io/) integration** - Your tablets become speakers in your whole-home audio system
+- **Synchronized playback** - Sub-50ms time-synced audio across all DashVoice tablets using the [SendSpin protocol](https://github.com/music-assistant/aiosendspin)
+- **Now Playing overlay** - Glassmorphic UI with album art, playback controls, and track info
+- **System volume control** - Music Assistant controls your tablet's actual volume; group members get relative gain
+- **Multi-codec support** - FLAC, PCM, and Opus decoding via Android MediaCodec
+- **Automatic discovery** - Tablets register via mDNS and appear in Music Assistant automatically
+
 ### Smart Dashboard
-- **[Home Assistant](https://www.home-assistant.io/) WebView** - Display any Lovelace dashboard
+- **[Home Assistant](https://www.home-assistant.io/) WebView** - Display any Lovelace dashboard with full SPA routing support
 - **Screensaver mode** - Show photos from [Immich](https://immich.app/) via [ImmichFrame](https://github.com/3rob3/ImmichFrame), or use any URL (DAKboard, weather displays, custom pages)
-- **Night mode** - Dim red clock display (preserves night vision)
-- **Auto-brightness** - Adjusts based on ambient light sensor
+- **Night mode** - Dim red clock display (iOS StandBy-style, preserves night vision)
+- **Auto-brightness** - Logarithmic brightness curve with configurable dim/wake thresholds and ambient light hysteresis
+- **Slide-out control drawer** - Quick access to brightness, volume, mic mute, screensaver, and settings
+
+### Home Assistant Integration
+- **MQTT auto-discovery** - Device sensors and controls appear automatically in Home Assistant
+- **Wyoming satellite** - Native HA voice pipeline satellite support
+- **Device sensors** - Battery level, ambient light, charging state, and motion exposed to HA
+- **Remote configuration** - Control dashboard URL, screensaver, wake word, TTS settings, and more via MQTT or HTTP API
+- **[Fully Kiosk](https://www.fully-kiosk.com/) compatible API** - Works with the HA Fully Kiosk integration out of the box
 
 ### Privacy First
 - Wake word detection runs **100% on-device**
 - Speech recognition can run **entirely locally** (no cloud required)
 - No audio is ever sent to third parties
+- Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
+- Crash reporting is **opt-in only** (Firebase Crashlytics)
 - All processing happens on your tablet and your [Home Assistant](https://www.home-assistant.io/) instance
 
 ### Tablet-Friendly
-- Works great on budget tablets (Lenovo Tab M10, etc.)
+- Works great on budget tablets (Samsung Galaxy Tab S7 FE, Lenovo Tab M10, etc.)
 - Optimized for wall-mounted kiosk use
 - Supports landscape and portrait orientations
 - Low power consumption in standby
+- OTA updates via HTTP API for headless deployments
 
 ---
 
@@ -104,9 +126,10 @@ So we built DashVoice.
 ## Requirements
 
 - Android tablet (Android 8.0+, arm64)
-- [Home Assistant](https://www.home-assistant.io/) instance
+- [Home Assistant](https://www.home-assistant.io/) instance on your network
 - Wi-Fi network
-- Optional: [MQTT broker](https://www.home-assistant.io/integrations/mqtt/) for enhanced status updates and device control
+- Optional: [MQTT broker](https://www.home-assistant.io/integrations/mqtt/) for real-time device control and automations
+- Optional: [Music Assistant](https://music-assistant.io/) for multiroom audio
 
 ---
 
@@ -138,6 +161,43 @@ For detailed setup instructions, see the [Setup Guide](docs/SETUP.md).
 
 ---
 
+## Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                          DashVoice                           │
+│                                                              │
+│  ┌─────────────────┐      ┌─────────────────┐               │
+│  │  openWakeWord   │      │   sherpa-onnx   │               │
+│  │  "Hey Jarvis"   │─────▶│   Local ASR     │               │
+│  └─────────────────┘      └────────┬────────┘               │
+│                                    │                         │
+│                                    ▼                         │
+│                           ┌─────────────────┐               │
+│                           │ HA Conversation │               │
+│                           │      API        │               │
+│                           └────────┬────────┘               │
+│                                    │                         │
+│                                    ▼                         │
+│                           ┌─────────────────┐               │
+│                           │  TTS Playback   │               │
+│                           │ (Kokoro/Piper)  │               │
+│                           └─────────────────┘               │
+│                                                              │
+│  ┌─────────────────┐      ┌─────────────────┐               │
+│  │    SendSpin     │      │   Now Playing   │               │
+│  │  Audio Client   │─────▶│    Overlay      │               │
+│  └─────────────────┘      └─────────────────┘               │
+│                                                              │
+│  ┌─────────────────┐      ┌─────────────────┐               │
+│  │    Wyoming      │      │     MQTT        │               │
+│  │   Satellite     │      │   Heartbeat     │               │
+│  └─────────────────┘      └─────────────────┘               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## Related Projects
 
 DashVoice works great with these open-source projects:
@@ -146,6 +206,7 @@ DashVoice works great with these open-source projects:
 | Project | Description |
 |---------|-------------|
 | [Home Assistant](https://www.home-assistant.io/) | Open-source home automation platform |
+| [Music Assistant](https://music-assistant.io/) | Universal music player for Home Assistant (multiroom audio) |
 | [MQTT Integration](https://www.home-assistant.io/integrations/mqtt/) | Message broker for real-time device updates |
 | [Wyoming Protocol](https://www.home-assistant.io/integrations/wyoming/) | Home Assistant's local voice assistant pipeline |
 
@@ -156,6 +217,7 @@ DashVoice works great with these open-source projects:
 | [openWakeWord](https://github.com/dscripka/openWakeWord) | On-device wake word detection |
 | [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) | On-device speech recognition |
 | [Piper](https://github.com/rhasspy/piper) | Fast, local neural text-to-speech |
+| [Kokoro](https://github.com/remsky/Kokoro-FastAPI) | High-quality OpenAI-compatible TTS |
 | [Whisper](https://www.home-assistant.io/integrations/whisper/) | OpenAI's speech recognition (runs locally) |
 
 ### Display & Media
@@ -163,6 +225,7 @@ DashVoice works great with these open-source projects:
 |---------|-------------|
 | [Immich](https://immich.app/) | Self-hosted photo management |
 | [ImmichFrame](https://github.com/3rob3/ImmichFrame) | Digital photo frame for Immich |
+| [SendSpin / aiosendspin](https://github.com/music-assistant/aiosendspin) | Multiroom audio sync protocol |
 | [Fully Kiosk Browser](https://www.fully-kiosk.com/) | The app that inspired DashVoice's dashboard features |
 
 ---

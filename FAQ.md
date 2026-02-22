@@ -65,7 +65,7 @@ Common issues:
 ## Voice Commands
 
 ### What wake words are available?
-Currently, DashVoice supports "Hey Jarvis". More wake words are planned for future updates.
+DashVoice supports "Hey Jarvis", "Okay Nabu", and other wake words via [openWakeWord](https://github.com/dscripka/openWakeWord). You can also import custom wake word models.
 
 ### Why isn't the wake word detected?
 - Make sure microphone permission is granted
@@ -135,14 +135,30 @@ Please include:
 
 ---
 
+## Multiroom Audio
+
+### How does multiroom audio work?
+DashVoice uses the [SendSpin protocol](https://github.com/music-assistant/aiosendspin) to receive synchronized audio streams from [Music Assistant](https://music-assistant.io/). Each tablet registers itself via mDNS and appears as a speaker in Music Assistant, where you can group tablets and control playback.
+
+### Do I need Music Assistant for multiroom audio?
+Yes. Music Assistant is a free, open-source music player for Home Assistant that handles music sources (Spotify, local files, etc.) and sends synchronized audio to DashVoice tablets via the SendSpin protocol.
+
+### Can I control music with voice commands?
+Yes! Say something like "Hey Jarvis, play jazz in the kitchen" and Home Assistant will route the request to Music Assistant, which streams to your DashVoice tablet.
+
+### What audio formats are supported?
+DashVoice supports FLAC (lossless), PCM (uncompressed), and Opus (compressed) audio streams. Music Assistant selects the best format automatically.
+
+---
+
 ## Future Plans
 
 ### What features are coming?
 We're working on:
-- Additional wake word options
-- Multi-language support
-- Presence detection (face detection to wake screen)
+- Multi-turn conversations (follow-up questions without re-triggering the wake word)
+- TTS voice selection dropdown (browse available voices)
 - Intercom features between tablets
+- AirPlay receiver support
 - And more based on your feedback!
 
 ### How can I request a feature?
