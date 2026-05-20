@@ -34,13 +34,15 @@ The tablet also publishes an availability topic, so Home Assistant marks entitie
 
 ### If you run Home Assistant OS or Supervised
 
-Use the **Mosquitto broker** add-on. It's the official path and the easiest to set up.
+Use the official **[Mosquitto broker](https://github.com/home-assistant/addons/blob/master/mosquitto/DOCS.md)** add-on. It's the easiest path and integrates cleanly with Home Assistant's user system.
 
-1. **Settings → Add-ons → Add-on Store**
+1. **Settings → Add-ons → Add-on Store** (or use the one-click [**Add Mosquitto broker**](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_mosquitto) link)
 2. Find **Mosquitto broker** under Official add-ons → install
 3. **Start** the add-on, and check **"Start on boot"** and **"Watchdog"**
 4. **Configuration** tab — leave defaults. The add-on auto-creates an internal user.
 5. Go to **Settings → People → Users → Add user** and create a dedicated MQTT user (e.g. `dashvoice`). Make sure **"Can only log in from the local network"** is off, since the tablet doesn't authenticate from `localhost`.
+
+> **Prefer a different broker?** [EMQX](https://github.com/hassio-addons/addon-emqx) is a popular community add-on with a web dashboard and is a drop-in alternative — install it from the [Home Assistant Community Add-ons](https://github.com/hassio-addons/repository) repository. Any MQTT 3.1.1 broker works with DashVoice.
 
 ### If you run HA in Docker or HA Core
 
@@ -81,7 +83,9 @@ docker compose up -d mosquitto
 
 ## Step 2 — Add the MQTT integration in Home Assistant
 
-1. **Settings → Devices & Services → Add Integration → MQTT**
+Add the [**MQTT integration**](https://www.home-assistant.io/integrations/mqtt/) so Home Assistant connects to your broker and listens for auto-discovery:
+
+1. **Settings → Devices & Services → Add Integration → MQTT** (or one-click [**Add MQTT integration**](https://my.home-assistant.io/redirect/config_flow_start/?domain=mqtt))
 2. **Broker:** `core-mosquitto` if you used the add-on, otherwise the host running Mosquitto
 3. **Port:** `1883`
 4. **Username / Password:** the MQTT user you created

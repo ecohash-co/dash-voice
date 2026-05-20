@@ -30,19 +30,27 @@ When you first launch DashVoice, you'll go through a setup wizard:
 ### 2.1 Welcome Screen
 Tap **Get Started** to begin.
 
+<p align="center"><img src="../assets/screenshots/01-welcome.png" alt="Welcome screen" width="640"></p>
+
 ### 2.2 Permissions
 Grant the required permissions:
 - **Microphone** - Required for wake word detection and voice commands
 - **Camera** (optional) - For QR code scanning during setup
 - **Notifications** - So wake word detection can run in the background
 
+<p align="center"><img src="../assets/screenshots/02-permissions.png" alt="Permissions screen" width="640"></p>
+
 > **Setting up a second tablet?** After the permissions step, DashVoice scans your network for tablets you've already configured. If it finds one, you can tap **Copy Settings** to import its Home Assistant connection, conversation agent, wake word, TTS endpoint, and more — then skip ahead. You'll still re-enter secrets like the access token and MQTT password for security.
+
+<p align="center"><img src="../assets/screenshots/03-discovery.png" alt="Device discovery screen" width="640"></p>
 
 ### 2.3 Connect to Home Assistant
 
 Enter your Home Assistant details:
 - **Host**: Your HA URL (e.g., `homeassistant.local:8123` or `192.168.1.100:8123`)
 - Tap **Test Connection** to verify
+
+<p align="center"><img src="../assets/screenshots/04-connection.png" alt="Home Assistant connection screen" width="640"></p>
 
 ### 2.4 Authentication
 
@@ -58,9 +66,13 @@ You'll need a Long-Lived Access Token from Home Assistant:
 
 > **Tip:** Create a separate token for each tablet. This lets you revoke access to individual devices if needed.
 
+<p align="center"><img src="../assets/screenshots/05-authentication-instructions.png" alt="Authentication screen" width="640"></p>
+
 ### 2.5 Device Name
 
 Give your tablet a friendly name (e.g., "Kitchen", "Living Room"). This helps identify it in Home Assistant.
+
+<p align="center"><img src="../assets/screenshots/06-device-name.png" alt="Device name screen" width="640"></p>
 
 ### 2.6 Voice Processing
 
@@ -72,6 +84,8 @@ Choose how voice commands are processed:
 | **Home Assistant** | Uses your existing HA STT setup | Requires network, depends on HA config |
 
 We recommend **On-Device** for the best experience.
+
+<p align="center"><img src="../assets/screenshots/07-voice-processing.png" alt="Voice processing screen" width="640"></p>
 
 ### 2.7 Download Speech Model
 
@@ -89,9 +103,13 @@ The Power Features step lets you turn on optional integrations — each one is a
 
 All of these are optional and can be changed later in **Settings → Power Features**.
 
+<p align="center"><img src="../assets/screenshots/15-power-features.png" alt="Power Features onboarding step with MQTT auto-detected" width="640"></p>
+
 ### 2.9 Complete!
 
 You're all set! Tap **Get Started** to begin using DashVoice.
+
+<p align="center"><img src="../assets/screenshots/14-complete.png" alt="Onboarding complete screen" width="640"></p>
 
 ---
 
