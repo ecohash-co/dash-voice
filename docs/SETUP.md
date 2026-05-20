@@ -36,6 +36,8 @@ Grant the required permissions:
 - **Camera** (optional) - For QR code scanning during setup
 - **Notifications** - So wake word detection can run in the background
 
+> **Setting up a second tablet?** After the permissions step, DashVoice scans your network for tablets you've already configured. If it finds one, you can tap **Copy Settings** to import its Home Assistant connection, conversation agent, wake word, TTS endpoint, and more — then skip ahead. You'll still re-enter secrets like the access token and MQTT password for security.
+
 ### 2.3 Connect to Home Assistant
 
 Enter your Home Assistant details:
@@ -75,7 +77,19 @@ We recommend **On-Device** for the best experience.
 
 If you chose On-Device processing, the app will download the speech recognition model (~460MB). This only happens once.
 
-### 2.8 Complete!
+### 2.8 Power Features
+
+The Power Features step lets you turn on optional integrations — each one is an expandable section you can enable or skip:
+
+- **MQTT** - Exposes the tablet's sensors and controls to Home Assistant. DashVoice probes your HA instance and, if it finds the MQTT integration, shows a **"Detected"** badge and pre-fills the broker URL. See the [MQTT Setup guide](setup/mqtt.md).
+- **Loki Logging** - Ships logs to a Grafana Loki server for fleet-wide visibility. See the [Loki Setup guide](setup/loki.md).
+- **Motion / Presence** - Wake the screen when someone approaches, using motion, camera, or proximity detection.
+- **Camera Stream** - Expose the tablet's camera to Home Assistant.
+- **Kiosk Mode** - Lock the tablet to DashVoice for wall-mounted use.
+
+All of these are optional and can be changed later in **Settings → Power Features**.
+
+### 2.9 Complete!
 
 You're all set! Tap **Get Started** to begin using DashVoice.
 
@@ -136,7 +150,17 @@ Install [Piper](https://www.home-assistant.io/integrations/piper/) for fast, hig
 
 ### Alternative: Kokoro TTS
 
-For even higher quality voices, set up [Kokoro](https://github.com/remsky/Kokoro-FastAPI) and use the OpenAI-compatible TTS option in DashVoice settings.
+For even higher quality voices, set up Kokoro via [speaches](https://github.com/speaches-ai/speaches) and use the OpenAI-compatible TTS option in DashVoice settings.
+
+See the [Text-to-Speech Setup guide](tts.md) for a full comparison of Piper, Kokoro, and OpenAI TTS — including quality, latency, and cost.
+
+### Real-Time Control via MQTT
+
+Connect DashVoice to your MQTT broker to expose each tablet's sensors and controls in Home Assistant, and to drive screen, brightness, TTS, and navigation from automations. See the [MQTT Setup guide](setup/mqtt.md).
+
+### Fleet Logging via Loki
+
+Running several tablets? Ship their logs to a Grafana Loki server so you can query everything from one place. See the [Loki Setup guide](setup/loki.md).
 
 ---
 

@@ -74,6 +74,10 @@ So we built DashVoice.
 - Low power consumption in standby
 - OTA updates via HTTP API for headless deployments
 
+### Easy Multi-Tablet Setup
+- **Guided onboarding** - A setup wizard walks you through Home Assistant connection, wake word, voice, and a Power Features step that auto-detects MQTT on your network
+- **Copy settings between tablets** - Set up your first tablet, then new tablets discover it over the network and import its configuration in one tap — no re-entering URLs, agents, or endpoints
+
 ---
 
 ## Screenshots
@@ -150,6 +154,14 @@ For detailed setup instructions, see the [Setup Guide](docs/SETUP.md).
 - [FAQ](FAQ.md) - Frequently asked questions
 - [Privacy Policy](PRIVACY_POLICY.md) - How we handle your data
 - [Awesome Smart Home](docs/AWESOME.md) - Related projects we recommend
+
+### Power Feature Guides
+
+These optional integrations add a lot of value once you're up and running:
+
+- [MQTT Setup](docs/setup/mqtt.md) - Auto-discover every tablet as device sensors and controls in Home Assistant
+- [Loki Setup](docs/setup/loki.md) - Ship logs from all your tablets to Grafana for fleet-wide visibility
+- [Text-to-Speech Setup](docs/setup/tts.md) - Piper vs. Kokoro vs. OpenAI — quality, latency, and cost compared
 
 ---
 
