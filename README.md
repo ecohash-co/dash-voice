@@ -171,6 +171,22 @@ These optional integrations add a lot of value once you're up and running:
 - **Feature requests**: [Open an issue](https://github.com/ecohash-co/dash-voice/issues/new?template=feature_request.md)
 - **Questions**: [GitHub Discussions](https://github.com/ecohash-co/dash-voice/discussions)
 
+### ☕ Support development
+
+DashVoice is built and maintained by one developer. If it's useful to you — especially if you're running it on hardware the Play Store can't reach — a tip helps keep it going:
+
+**[buymeacoffee.com/ecohash_co](https://buymeacoffee.com/ecohash_co)**
+
+---
+
+## Older or 32-bit devices (LineageOS, Android 8.x)
+
+The Google Play build targets 64-bit ARM (Play's 16 KB page-size requirement). If your tablet is **older or 32-bit** — common with LineageOS on legacy hardware — and the Play build won't install, grab the **legacy sideload APK** instead:
+
+**[→ Latest legacy sideload release](https://github.com/ecohash-co/dash-voice/releases)**
+
+It includes 32-bit ARM (`armeabi-v7a`) support and runs on **Android 8.0+**. It's best-effort and unsupported — these are older, low-RAM devices, so voice runs but will be slower, and DashVoice automatically selects its lightest on-device engine to fit. Sideload it by enabling "Install unknown apps" for your browser or file manager.
+
 ---
 
 ## Architecture
