@@ -180,6 +180,10 @@ Connect DashVoice to your MQTT broker to expose each tablet's sensors and contro
 
 Running several tablets? Ship their logs to a Grafana Loki server so you can query everything from one place. See the [Loki Setup guide](setup/loki.md).
 
+### Voice Music Control
+
+If you run [Music Assistant](https://music-assistant.io/), DashVoice can handle music commands entirely on-device — "Hey Jarvis, play LCD Soundsystem radio on the main floor" searches your library, groups the zone's speakers, and starts synchronized multi-room playback. No LLM or conversation agent required. It's experimental and off by default; enable it in **Settings → Audio → Voice Music Control**. See the [Voice Music guide](VOICE_MUSIC.md) for phrasings, zones, and troubleshooting.
+
 ---
 
 ## Wall Mounting Tips

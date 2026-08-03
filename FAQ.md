@@ -82,6 +82,11 @@ Any command your Home Assistant understands! Examples:
 
 The actual capabilities depend on your Home Assistant setup and conversation agent.
 
+Some commands are handled directly on the tablet, without Home Assistant's conversation agent:
+- "Hey Jarvis, set a 10 minute timer" — [native timers](#announcements--timers)
+- "Hey Jarvis, announce dinner is ready" — [announcements](#announcements--timers) on every tablet
+- "Hey Jarvis, play jazz in the kitchen" — [voice music control](docs/VOICE_MUSIC.md) *(coming in the next release)*
+
 ### How do I improve voice recognition accuracy?
 - Use Local ASR with the NeMo Fast model (default) for best latency
 - Speak clearly and at a normal pace
@@ -144,10 +149,32 @@ DashVoice uses the [SendSpin protocol](https://github.com/music-assistant/aiosen
 Yes. Music Assistant is a free, open-source music player for Home Assistant that handles music sources (Spotify, local files, etc.) and sends synchronized audio to DashVoice tablets via the SendSpin protocol.
 
 ### Can I control music with voice commands?
-Yes! Say something like "Hey Jarvis, play jazz in the kitchen" and Home Assistant will route the request to Music Assistant, which streams to your DashVoice tablet.
+Yes — two ways:
+
+1. **Native voice music control** *(coming in the next release, experimental)* - DashVoice matches music commands on-device and drives Music Assistant directly: "Hey Jarvis, play LCD Soundsystem radio on the main floor" searches, groups the zone's speakers, and starts synchronized playback — no LLM or conversation agent needed. See the [Voice Music guide](docs/VOICE_MUSIC.md).
+2. **Via Home Assistant** - Any music command your HA conversation agent understands works as before.
+
+### Can I play music in multiple rooms with one command?
+Yes, with native voice music control. Every Music Assistant player name is a zone automatically, "everywhere" targets all speakers, and you can define custom zones like "main floor" in the `musicZones` setting. Details in the [Voice Music guide](docs/VOICE_MUSIC.md).
 
 ### What audio formats are supported?
 DashVoice supports FLAC (lossless), PCM (uncompressed), and Opus (compressed) audio streams. Music Assistant selects the best format automatically.
+
+---
+
+## Announcements & Timers
+
+### How do announcements work?
+Say "Hey Jarvis, announce dinner is ready" (or "broadcast...", "tell everyone...") and every DashVoice tablet in the house shows a full-screen announcement card, plays a chime, and speaks your message. It's handled entirely on-device — no conversation agent involved.
+
+### What do announcements require?
+Your tablets need to share an MQTT broker — that's how they talk to each other. See the [MQTT Setup guide](docs/setup/mqtt.md). Everything else is automatic.
+
+### Does DashVoice have timers?
+Yes — native, fully offline timers. Say "set a 10 minute timer", "set a pizza timer for 12 minutes", or even "set a timer for an hour and a half". You can run multiple named timers at once, and pause, resume, cancel, or ask how much time is left by voice. When a timer fires, you get a full-screen alarm — dismiss it with a tap or by saying "stop".
+
+### Do timers need Home Assistant?
+No. Timers run entirely on the tablet and survive app restarts, so they work even if your network or Home Assistant is down.
 
 ---
 
@@ -157,7 +184,8 @@ DashVoice supports FLAC (lossless), PCM (uncompressed), and Opus (compressed) au
 We're working on:
 - Multi-turn conversations (follow-up questions without re-triggering the wake word)
 - TTS voice selection dropdown (browse available voices)
-- Intercom features between tablets
+- A Home Assistant integration that exposes each tablet as an `assist_satellite`, so HA automations can trigger announcements
+- Voice intercom (send your actual recorded voice between tablets)
 - AirPlay receiver support
 - And more based on your feedback!
 

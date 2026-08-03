@@ -36,6 +36,9 @@ So we built DashVoice.
 - **On-device speech recognition** - Using [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), or leverage the [Wyoming protocol](https://www.home-assistant.io/integrations/wyoming/) for [Home Assistant's voice pipeline](https://www.home-assistant.io/voice_control/)
 - **Natural language commands** - Via [Home Assistant Conversation API](https://www.home-assistant.io/integrations/conversation/)
 - **High-quality TTS** - Via [Piper](https://github.com/rhasspy/piper) or OpenAI-compatible endpoints like [Kokoro](https://github.com/remsky/Kokoro-FastAPI)
+- **Announcements** - "Hey Jarvis, announce dinner is ready" broadcasts to every tablet in the house: full-screen card, chime, and spoken message *(new)*
+- **Native timers** - Multiple named timers, fully offline, with full-screen alarms - "set a pizza timer for 12 minutes" *(new)*
+- **Voice music control** - "Play LCD Soundsystem radio on the main floor": on-device music intents drive Music Assistant search, radio mode, and synchronized multi-room zones - no LLM needed ([guide](docs/VOICE_MUSIC.md), *coming in the next release*)
 
 ### Multiroom Audio (SendSpin)
 - **[Music Assistant](https://music-assistant.io/) integration** - Your tablets become speakers in your whole-home audio system
@@ -44,6 +47,7 @@ So we built DashVoice.
 - **System volume control** - Music Assistant controls your tablet's actual volume; group members get relative gain
 - **Multi-codec support** - FLAC, PCM, and Opus decoding via Android MediaCodec
 - **Automatic discovery** - Tablets register via mDNS and appear in Music Assistant automatically
+- **Voice-controlled zones** - Group any rooms into named zones ("main floor", "everywhere") and start synchronized playback by voice ([Voice Music guide](docs/VOICE_MUSIC.md))
 
 ### Smart Dashboard
 - **[Home Assistant](https://www.home-assistant.io/) WebView** - Display any Lovelace dashboard with full SPA routing support
@@ -162,6 +166,7 @@ These optional integrations add a lot of value once you're up and running:
 - [MQTT Setup](docs/setup/mqtt.md) - Auto-discover every tablet as device sensors and controls in Home Assistant
 - [Loki Setup](docs/setup/loki.md) - Ship logs from all your tablets to Grafana for fleet-wide visibility
 - [Text-to-Speech Setup](docs/setup/tts.md) - Piper vs. Kokoro vs. OpenAI — quality, latency, and cost compared
+- [Voice Music Control](docs/VOICE_MUSIC.md) - Play music in any room (or every room) by voice via Music Assistant — zones, radio mode, and multi-room sync
 
 ---
 
