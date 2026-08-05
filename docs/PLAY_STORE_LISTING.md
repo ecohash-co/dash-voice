@@ -1,129 +1,139 @@
 # DashVoice - Play Store Listing
 
+> This file is the source of truth for what should be in the Play Console. If you
+> change the listing, change it here too — otherwise the repo and the Console drift.
+
 ## App Name
-**DashVoice - Voice Assistant for Home Assistant**
+
+The app is **DashVoice**. This is the Play *listing title* — a separate, searchable
+field, **hard-capped at 30 characters**. It is currently just `DashVoice` (9), which
+tells the store nothing about what the app does, so the listing can't surface for
+searches like "home assistant voice".
+
+Candidates that fit:
+
+| chars | title |
+|---|---|
+| 25 | `DashVoice: Home Assistant` |
+| 27 | `DashVoice: HA Voice + Music` |
+| 28 | `DashVoice — HA Voice & Audio` |
+| 24 | `DashVoice — Voice for HA` |
+
+Recommendation: **`DashVoice: Home Assistant`** — "Home Assistant" is the term people
+actually search, and spending the budget on it beats describing features nobody is
+querying by name. Keep the brand first either way.
 
 ---
 
 ## Short Description (80 characters max)
 ```
-Voice-controlled smart home dashboard for Home Assistant. 100% local & private.
+Local wake word, HA dashboard, and whole-home audio on any Android tablet
 ```
-(78 characters)
+(73 characters)
 
 ---
 
 ## Full Description (4000 characters max)
 
 ```
-Transform any Android tablet into a powerful voice-controlled smart home hub.
+Give the tablet in your drawer a second life.
 
-DashVoice brings voice control to your wall-mounted tablets. Simply say "Hey Jarvis" and control your entire smart home - no cloud services, no subscriptions, complete privacy.
+DashVoice turns an Android tablet into three things at once: a voice assistant that
+listens on the device, a Home Assistant dashboard, and a speaker in your whole-home
+audio system. Say "Hey Jarvis, turn on the kitchen lights" and it just works — the wake
+word and the speech recognition run on the tablet itself.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-WHY DASHVOICE?
+VOICE THAT RUNS ON THE TABLET
 
-We built DashVoice because we wanted something that didn't exist: a voice-enabled tablet dashboard for Home Assistant that respects your privacy.
+• Wake word detection entirely on-device — "Hey Jarvis", "Okay Nabu" and others
+• On-device speech recognition, no internet round-trip to understand you
+• Your audio never leaves the tablet. Only the transcript goes to your own Home
+  Assistant, and only after the wake word
+• Commands are handled by whichever conversation agent you've set up in HA
+• Natural, high-quality speech responses via Piper or any OpenAI-compatible endpoint
 
-For years, we used Fully Kiosk Browser to display Home Assistant dashboards on wall-mounted tablets. It was great for showing dashboards, but it couldn't do the one thing we really wanted - voice control.
+ANSWERS WITHOUT THE CLOUD
 
-We wanted to say "Hey Jarvis, turn on the lights" and have it just work. No cloud. No monthly fees. No sending our voice to big tech companies.
+• Timers run on the device — "set a pizza timer for twelve minutes" — with named
+  timers, a full-screen alarm, and no dependency on your network being up
+• Announcements broadcast to every tablet in the house: "Hey Jarvis, announce that
+  dinner is ready" lights up each screen with a card, a chime and the spoken message
+• Both keep working when Home Assistant is unreachable
 
-So we built DashVoice.
+WHOLE-HOME AUDIO
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Each tablet registers as a speaker in Music Assistant
+• Synchronized playback across tablets, measured within about 50 ms
+• Ask for music by voice — "play LCD Soundsystem radio on the main floor" — including
+  named zones you define, without needing an LLM agent
+• Now Playing overlay with album art and transport controls; group volume handled
+  properly
 
-KEY FEATURES
+A DASHBOARD WORTH MOUNTING
 
-◆ VOICE CONTROL
-• Custom wake words - "Hey Jarvis", "Okay Nabu", and more
-• 100% on-device wake word detection
-• On-device speech recognition (no internet required)
-• Natural language commands via Home Assistant
+• Any Home Assistant Lovelace dashboard, full-screen
+• Photo screensaver — point it at Immich/ImmichFrame or any URL
+• Night mode with a dim red clock that preserves night vision
+• Auto-brightness from the ambient light sensor, with hysteresis so it doesn't flicker
+• Slide-out drawer for brightness, volume, mic mute and settings
 
-◆ SMART DASHBOARD
-• Display any Home Assistant Lovelace dashboard
-• Photo screensaver with Immich/ImmichFrame support
-• Night mode with dim red clock (preserves night vision)
-• Auto-brightness based on ambient light
+FITS INTO HOME ASSISTANT PROPERLY
 
-◆ PRIVACY FIRST
-• Wake word runs entirely on your device
-• Speech recognition can run 100% locally
-• No audio sent to third parties
-• All data stays on your tablet and your Home Assistant
+• MQTT auto-discovery — sensors and controls appear in HA on their own
+• Battery, ambient light, charging state and motion exposed as entities
+• Remote configuration over MQTT or HTTP
+• Compatible with the Fully Kiosk integration's API
+• Wyoming satellite support for HA's own voice pipeline
 
-◆ ADVANCED FEATURES
-• MQTT integration for real-time updates
-• Presence detection (proximity, sound, face)
-• Camera streaming to Home Assistant
-• Multi-tablet setup with config sync
-• Import entity names from HA for better recognition
+SET UP THE SECOND TABLET IN ONE TAP
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• A guided wizard handles Home Assistant, wake word, voice and power features
+• A new tablet finds an existing one over your network and imports its configuration
 
-REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-• Android tablet (Android 8.0+)
-• Home Assistant instance on your network
-• Wi-Fi connection
+WHAT YOU NEED
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• An Android tablet, 8.0 or newer
+• A Home Assistant instance on your network
+• Wi-Fi
 
-PERFECT FOR
+DashVoice has no account, no subscription and no analytics or crash-reporting SDK.
+Music Assistant is optional and only needed for audio features.
 
-✓ Wall-mounted smart home controllers
-✓ Kitchen counter voice assistants
-✓ Bedside smart displays
-✓ Home office dashboards
-✓ Repurposing old tablets
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-WORKS WITH
-
-• Home Assistant (required)
-• Extended OpenAI Conversation
-• Piper TTS
-• Wyoming voice pipeline
-• Immich & ImmichFrame
-• MQTT brokers
-• Any Lovelace dashboard
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-SUPPORT
-
-Documentation & FAQ: github.com/ecohash-co/dash-voice
-Report issues: github.com/ecohash-co/dash-voice/issues
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Your smart home. Your voice. Your privacy.
+Documentation and FAQ: github.com/ecohash-co/dash-voice
+Issues: github.com/ecohash-co/dash-voice/issues
 ```
-
-(~2400 characters)
 
 ---
 
 ## Category
 **House & Home** (primary)
-or **Tools** (alternative)
 
 ---
 
 ## Tags/Keywords
+
+Work these in naturally:
+
 - home assistant
-- voice assistant
-- smart home
-- voice control
-- home automation
+- music assistant
+- multiroom
+- wake word
 - tablet dashboard
 - kiosk
-- wake word
-- jarvis
-- privacy
+- local voice
+- immich
+
+---
+
+## Data Safety
+
+Declares **no data collected**. Firebase was removed from the app on 2026-05-25 and
+DashVoice contains no analytics SDK, no crash-reporting SDK and no third-party
+telemetry of any kind. The privacy policy says the same thing — keep them in agreement.
 
 ---
 
@@ -142,10 +152,10 @@ or **Tools** (alternative)
 
 | Permission | Reason |
 |------------|--------|
-| Microphone | Required for wake word detection and voice commands |
-| Camera | Optional - QR code scanning during setup, presence detection |
-| Internet | Connect to your Home Assistant instance |
-| Foreground Service | Keep voice detection running when screen is off |
+| Microphone | Required for wake word detection and voice commands. Wake word and speech recognition run on the device |
+| Camera | Optional — QR code scanning during setup, and optional motion detection (frame differencing on the device, used to wake the screen). **No face detection and no face recognition** |
+| Internet | Connect to your Home Assistant instance, and to any TTS or Music Assistant endpoint you configure |
+| Foreground Service | Keep voice detection running when the screen is off |
 
 ---
 

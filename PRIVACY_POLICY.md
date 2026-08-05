@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **Effective Date:** January 28, 2025
-**Last Updated:** January 28, 2025
+**Last Updated:** August 4, 2026
 
 DashVoice ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how DashVoice handles information when you use our Android application.
 
@@ -11,10 +11,11 @@ DashVoice ("we", "our", or "the app") is committed to protecting your privacy. T
 
 **DashVoice is designed with privacy as a core principle:**
 
-- All voice processing happens **on your device** or **your own Home Assistant server**
+- Wake word detection and speech recognition run **on the device**. Your audio never leaves the tablet — only the transcript travels, and only to the Home Assistant instance you configured
 - We do **not** collect, store, or transmit your voice recordings to any third-party servers
 - We do **not** sell or share your personal information
-- The app works entirely within your local network
+- DashVoice contains **no analytics SDK, no crash-reporting SDK and no third-party telemetry of any kind**
+- Anything beyond the tablet is a server *you* chose. If you point Home Assistant at a cloud conversation agent, or configure a hosted text-to-speech endpoint, your transcripts and responses go wherever you sent them — that is your choice, not something DashVoice does on its own
 
 ---
 
@@ -39,9 +40,9 @@ DashVoice requires microphone access to:
 ### Camera Access (Optional)
 If enabled, DashVoice may use your camera for:
 - QR code scanning during setup
-- Future: Presence detection (processed on-device)
+- Optional motion detection, used to wake the screen
 
-Camera data is processed locally and never transmitted.
+Motion detection compares successive camera frames on the device to see whether anything changed. **There is no face detection and no face recognition** — DashVoice does not identify people. Camera frames are processed locally, are not stored, and are never transmitted.
 
 ### Network Access
 DashVoice connects to:
@@ -55,20 +56,13 @@ All connections are made to servers **you configure** on your local network or y
 
 ## Information We Collect
 
-### Crash Reports (Optional)
-If you opt in, DashVoice uses Firebase Crashlytics to collect:
-- App crash logs and stack traces
-- Device model and Android version
-- App version
+**Nothing.**
 
-This helps us fix bugs and improve stability. Crash reports do **not** contain:
-- Voice recordings
-- Personal information
-- Home Assistant data
-
-You can opt out of crash reporting in the app settings.
+DashVoice contains no analytics SDK, no crash-reporting SDK and no third-party telemetry of any kind. Nothing is collected, so there is nothing to opt out of.
 
 ### We Do NOT Collect
+- Crash logs, stack traces or diagnostic reports
+- Device or app identifiers of any kind
 - Voice recordings or transcripts
 - Home Assistant credentials or data
 - Personal information
@@ -105,10 +99,7 @@ DashVoice may connect to third-party services **that you configure**:
 
 These are services **you control**. We have no access to your data on these services.
 
-### Firebase (Google)
-If crash reporting is enabled:
-- Firebase Crashlytics receives crash logs
-- Subject to [Google's Privacy Policy](https://policies.google.com/privacy)
+There are no other third parties. DashVoice does not embed any analytics, crash-reporting, advertising or telemetry service, and sends nothing to us or to Google beyond what Google Play itself handles when you install or update the app.
 
 ---
 
@@ -130,8 +121,9 @@ DashVoice is not directed at children under 13. We do not knowingly collect info
 
 You can:
 - **Delete all app data** by uninstalling the app or clearing app data in Android settings
-- **Disable crash reporting** in app settings
 - **Revoke permissions** (microphone, camera) in Android settings
+
+There is no data held by us to request, correct or delete — we never receive any.
 
 ---
 
