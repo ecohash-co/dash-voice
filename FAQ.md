@@ -5,8 +5,15 @@
 ### What is DashVoice?
 DashVoice turns any Android tablet into a smart home voice assistant and dashboard. It integrates with Home Assistant to let you control your smart home with voice commands like "Hey Jarvis, turn on the lights."
 
-### Is DashVoice free?
-DashVoice is a paid app available on Google Play. We believe in sustainable development and providing quality support.
+### How much does DashVoice cost?
+DashVoice is **$9.99 on Google Play** — a one-time purchase, not a subscription.
+
+A Play purchase is tied to your Google account rather than to a device, so **one purchase covers every tablet in your house.** That matters here: multiroom audio and house-wide announcements only do anything once you have a second tablet, and we didn't want the price to argue against the feature.
+
+### Then why is there a free APK on GitHub?
+Because some tablets can't install the Play build. Google Play requires 64-bit ARM, which rules out older and 32-bit devices — exactly the hardware this app is meant to give a second life to. The [legacy sideload APK](https://github.com/ecohash-co/dash-voice/releases) exists for those tablets and carries an optional tip link instead, since a sideloaded app can't charge through Play.
+
+It isn't a free tier. If your tablet can install from Play, that's the supported build: it updates automatically and it's the one we test against.
 
 ### What tablets work with DashVoice?
 Any Android tablet running Android 8.0+ with an arm64 processor. We've tested extensively on:

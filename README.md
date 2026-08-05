@@ -202,13 +202,18 @@ And a few more things handled on the tablet, with everything else falling throug
 | | **Google Play** (recommended) | **Legacy sideload APK** |
 |---|---|---|
 | For | Anything from roughly the last several years | Older or 32-bit tablets, LineageOS on legacy hardware |
+| Price | $9.99 one-time — a Play purchase covers **every tablet on your Google account** | Free; optional tip link, since a sideloaded app can't charge through Play |
 | Architecture | arm64 (Play's 16 KB page-size requirement) | Adds 32-bit ARM (`armeabi-v7a`) |
 | Android | 8.0+ | 8.0+ |
 | Updates | Automatic | Manual — check back here |
 | Support | Supported | Best-effort, unsupported |
 | Get it | [Play Store](https://play.google.com/store/apps/details?id=com.dashvoice) | [v0.1.553-legacy](https://github.com/ecohash-co/dash-voice/releases/tag/v0.1.553-legacy) |
 
-Install from Google Play unless it refuses to install on your tablet. If it does refuse — usually a 32-bit device — take the legacy build. These are older, low-RAM devices, so voice works but runs slower, and DashVoice automatically selects its lightest on-device speech engine to fit. To sideload, enable "Install unknown apps" for your browser or file manager, then open the downloaded APK.
+**The sideload build is not a free tier.** Play requires 64-bit ARM, which rules out
+exactly the older hardware this app exists to revive — so that build is there for tablets
+Play can't reach, and it runs on the honour system.
+
+Install from Google Play unless it refuses to install on your tablet. If it does refuse — usually a 32-bit device — take the legacy build. These are older, low-RAM devices, so voice works but runs slower. On first run DashVoice sizes up your tablet's RAM and pre-selects a speech engine that fits, and falls back to the lighter pipeline if the modern one can't start; it won't override an engine you pick yourself, so if you change it, choose a small one. To sideload, enable "Install unknown apps" for your browser or file manager, then open the downloaded APK.
 
 ---
 
