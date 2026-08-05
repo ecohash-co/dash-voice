@@ -68,7 +68,7 @@ So we built DashVoice.
 - Speech recognition can run **entirely locally** (no cloud required)
 - No audio is ever sent to third parties
 - Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
-- Crash reporting is **opt-in only** (Firebase Crashlytics)
+- **No analytics SDK, no crash-reporting SDK, no third-party telemetry of any kind** — nothing is collected, so there is nothing to opt out of
 - All processing happens on your tablet and your [Home Assistant](https://www.home-assistant.io/) instance
 
 ### Tablet-Friendly
