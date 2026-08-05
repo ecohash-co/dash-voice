@@ -207,7 +207,7 @@ And a few more things handled on the tablet, with everything else falling throug
 | Android | 8.0+ | 8.0+ |
 | Updates | Automatic | Manual — check back here |
 | Support | Supported | Best-effort, unsupported |
-| Get it | [Play Store](https://play.google.com/store/apps/details?id=com.dashvoice) | [v0.1.553-legacy](https://github.com/ecohash-co/dash-voice/releases/tag/v0.1.553-legacy) |
+| Get it | [Play Store](https://play.google.com/store/apps/details?id=com.dashvoice) | [Latest release](https://github.com/ecohash-co/dash-voice/releases/latest) |
 
 **The sideload build is not a free tier.** Play requires 64-bit ARM, which rules out
 exactly the older hardware this app exists to revive — so that build is there for tablets
@@ -264,7 +264,11 @@ DashVoice is built and maintained by one developer. If it's useful to you — es
 
 See [Which build do I want?](#which-build-do-i-want) above — the legacy sideload APK adds 32-bit ARM (`armeabi-v7a`) support for tablets the Play build can't reach.
 
-**[→ Latest legacy sideload release](https://github.com/ecohash-co/dash-voice/releases/tag/v0.1.553-legacy)**
+**[→ Latest legacy sideload release](https://github.com/ecohash-co/dash-voice/releases/latest)**
+
+Only the current sideload build is published. Older ones are removed when a new one goes
+up, so the link above is always the version we'd recommend — bookmark it rather than a
+version number.
 
 ---
 
