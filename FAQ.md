@@ -85,7 +85,7 @@ The actual capabilities depend on your Home Assistant setup and conversation age
 Some commands are handled directly on the tablet, without Home Assistant's conversation agent:
 - "Hey Jarvis, set a 10 minute timer" — [native timers](#announcements--timers)
 - "Hey Jarvis, announce dinner is ready" — [announcements](#announcements--timers) on every tablet
-- "Hey Jarvis, play jazz in the kitchen" — [voice music control](docs/VOICE_MUSIC.md) *(coming in the next release)*
+- "Hey Jarvis, play jazz in the kitchen" — [voice music control](docs/VOICE_MUSIC.md)
 
 ### How do I improve voice recognition accuracy?
 - Use Local ASR with the NeMo Fast model (default) for best latency
@@ -151,7 +151,7 @@ Yes. Music Assistant is a free, open-source music player for Home Assistant that
 ### Can I control music with voice commands?
 Yes — two ways:
 
-1. **Native voice music control** *(coming in the next release, experimental)* - DashVoice matches music commands on-device and drives Music Assistant directly: "Hey Jarvis, play LCD Soundsystem radio on the main floor" searches, groups the zone's speakers, and starts synchronized playback — no LLM or conversation agent needed. See the [Voice Music guide](docs/VOICE_MUSIC.md).
+1. **Native voice music control** - DashVoice matches music commands on-device and drives Music Assistant directly: "Hey Jarvis, play LCD Soundsystem radio on the main floor" searches, groups the zone's speakers, and starts synchronized playback — no LLM or conversation agent needed. See the [Voice Music guide](docs/VOICE_MUSIC.md).
 2. **Via Home Assistant** - Any music command your HA conversation agent understands works as before.
 
 ### Can I play music in multiple rooms with one command?

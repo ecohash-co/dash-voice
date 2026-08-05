@@ -1,6 +1,6 @@
 # Voice Music Control
 
-> **Coming in the next release** — experimental, off by default. This guide describes the feature as it will ship; enable it from **Settings → Audio → Voice Music Control** once your tablets update.
+> **Shipped in 0.1.479.** Enable it from **Settings → Audio → Voice Music Control**.
 
 Say it, hear it — in any room, or every room:
 

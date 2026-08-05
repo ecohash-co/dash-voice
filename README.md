@@ -1,10 +1,12 @@
 # DashVoice
 
-**Transform any Android tablet into a smart home voice assistant, dashboard, and multiroom speaker.**
+**Turn any Android tablet into a private smart display.**
 
-DashVoice is a privacy-focused voice assistant for Android tablets that integrates with [Home Assistant](https://www.home-assistant.io/) and [Music Assistant](https://music-assistant.io/). Turn an old tablet into a wall-mounted smart home controller with always-on wake word detection, voice commands, a customizable dashboard, and synchronized multiroom audio.
+DashVoice is a smart home voice assistant, a [Home Assistant](https://www.home-assistant.io/) dashboard, and a synchronized multiroom speaker in one app. Wake word and speech recognition run entirely on the tablet — your voice never leaves your network.
 
-[![Google Play](https://img.shields.io/badge/Google_Play-Early_Access-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
+Give the tablet in your drawer a second life: mount it on the wall, say *"Hey Jarvis, turn on the kitchen lights"*, and it just works. The tablet isn't only showing your smart home — it's part of it. It listens, it answers, it announces, it rings, and it plays music in sync with every other tablet in the house.
+
+[![Google Play](https://img.shields.io/badge/Google_Play-Available-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-blue?style=for-the-badge&logo=android)](https://developer.android.com/)
 
 <p align="center">
@@ -21,7 +23,7 @@ DashVoice is a privacy-focused voice assistant for Android tablets that integrat
 
 DashVoice was born out of frustration. For years, we used [Fully Kiosk Browser](https://www.fully-kiosk.com/) with [Home Assistant](https://www.home-assistant.io/) to create wall-mounted tablet dashboards. Fully Kiosk is excellent for displaying dashboards, but it couldn't do the one thing we really wanted: **voice control**.
 
-We wanted to say "Hey Jarvis, turn on the lights" and have it just work. No cloud services, no monthly fees, no privacy concerns. Just a tablet on the wall that listens for a wake word and controls our smart home.
+We wanted to say "Hey Jarvis, turn on the lights" and have it just work — without shipping the audio of our house to somebody's server, and without a monthly fee. Just a tablet on the wall that listens for a wake word and controls our smart home.
 
 Then we wanted music. Not just on one tablet, but synchronized across every room. So we added [SendSpin](https://github.com/music-assistant/aiosendspin) multiroom audio, and now every DashVoice tablet is also a speaker in your whole-home audio system.
 
@@ -31,56 +33,100 @@ So we built DashVoice.
 
 ## Features
 
-### Voice Control
+### Voice, fully on-device
 - **Custom wake words** - "Hey Jarvis", "Okay Nabu", and more (fully on-device via [openWakeWord](https://github.com/dscripka/openWakeWord))
-- **On-device speech recognition** - Using [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), or leverage the [Wyoming protocol](https://www.home-assistant.io/integrations/wyoming/) for [Home Assistant's voice pipeline](https://www.home-assistant.io/voice_control/)
-- **Natural language commands** - Via [Home Assistant Conversation API](https://www.home-assistant.io/integrations/conversation/)
+- **On-device speech recognition** - Using [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), so there's no internet round-trip just to understand you. Or leverage the [Wyoming protocol](https://www.home-assistant.io/integrations/wyoming/) for [Home Assistant's voice pipeline](https://www.home-assistant.io/voice_control/)
+- **Your audio never leaves the tablet** - Only the transcript travels, only after the wake word, and only to your own Home Assistant
+- **Natural language commands** - Handled by whichever conversation agent you've set up in HA, via the [Conversation API](https://www.home-assistant.io/integrations/conversation/)
 - **High-quality TTS** - Via [Piper](https://github.com/rhasspy/piper) or OpenAI-compatible endpoints like [Kokoro](https://github.com/remsky/Kokoro-FastAPI)
-- **Announcements** - "Hey Jarvis, announce dinner is ready" broadcasts to every tablet in the house: full-screen card, chime, and spoken message *(new)*
-- **Native timers** - Multiple named timers, fully offline, with full-screen alarms - "set a pizza timer for 12 minutes" *(new)*
-- **Voice music control** - "Play LCD Soundsystem radio on the main floor": on-device music intents drive Music Assistant search, radio mode, and synchronized multi-room zones - no LLM needed ([guide](docs/VOICE_MUSIC.md), *coming in the next release*)
+- **Typically 1-2 seconds** from wake word to spoken reply on Tab S7-class hardware
 
-### Multiroom Audio (SendSpin)
-- **[Music Assistant](https://music-assistant.io/) integration** - Your tablets become speakers in your whole-home audio system
-- **Synchronized playback** - Sub-50ms time-synced audio across all DashVoice tablets using the [SendSpin protocol](https://github.com/music-assistant/aiosendspin)
+### Answers without the cloud
+Some things shouldn't need a server at all. Timers and announcements are matched and handled on the tablet itself — they keep working when Home Assistant is unreachable.
+
+- **Native timers** - *"set a pizza timer for twelve minutes"*. Multiple named timers at once, pause/resume/cancel by voice, a full-screen alarm when they fire, and they survive an app restart
+- **Announcements** - *"announce that dinner is ready"* lights up every tablet in the house with a full-screen card, a chime, and the spoken message
+- **No conversation agent involved** - no LLM, no network round-trip, no cloud dependency
+
+See [Announcements & timers](#announcements--timers) below for the phrases that work.
+
+### Whole-home audio (multiroom)
+- **[Music Assistant](https://music-assistant.io/) integration** - Each tablet registers as a speaker in your whole-home audio system
+- **Synchronized playback** - Time-synced audio across DashVoice tablets using the [SendSpin protocol](https://github.com/music-assistant/aiosendspin), **measured within about 50 ms** across tablets
+- **Voice music control** - *"play LCD Soundsystem radio on the main floor"*: on-device music intents drive Music Assistant search, radio mode, and synchronized multi-room zones — no LLM needed ([guide](docs/VOICE_MUSIC.md))
+- **Voice-controlled zones** - Group any rooms into named zones ("main floor", "everywhere") and start synchronized playback by voice
 - **Now Playing overlay** - Glassmorphic UI with album art, playback controls, and track info
+- **Group transport from any tablet** - Stop, pause or skip on one tablet and the whole group follows
 - **System volume control** - Music Assistant controls your tablet's actual volume; group members get relative gain
 - **Multi-codec support** - FLAC, PCM, and Opus decoding via Android MediaCodec
 - **Automatic discovery** - Tablets register via mDNS and appear in Music Assistant automatically
-- **Voice-controlled zones** - Group any rooms into named zones ("main floor", "everywhere") and start synchronized playback by voice ([Voice Music guide](docs/VOICE_MUSIC.md))
 
-### Smart Dashboard
+### A dashboard worth mounting
 - **[Home Assistant](https://www.home-assistant.io/) WebView** - Display any Lovelace dashboard with full SPA routing support
 - **Screensaver mode** - Show photos from [Immich](https://immich.app/) via [ImmichFrame](https://github.com/3rob3/ImmichFrame), or use any URL (DAKboard, weather displays, custom pages)
 - **Night mode** - Dim red clock display (iOS StandBy-style, preserves night vision)
 - **Auto-brightness** - Logarithmic brightness curve with configurable dim/wake thresholds and ambient light hysteresis
 - **Slide-out control drawer** - Quick access to brightness, volume, mic mute, screensaver, and settings
+- **Photo feedback strip** - Heart or skip a screensaver photo without leaving the screensaver
 
-### Home Assistant Integration
+### Fits into Home Assistant properly
 - **MQTT auto-discovery** - Device sensors and controls appear automatically in Home Assistant
 - **Wyoming satellite** - Native HA voice pipeline satellite support
 - **Device sensors** - Battery level, ambient light, charging state, and motion exposed to HA
 - **Remote configuration** - Control dashboard URL, screensaver, wake word, TTS settings, and more via MQTT or HTTP API
 - **[Fully Kiosk](https://www.fully-kiosk.com/) compatible API** - Works with the HA Fully Kiosk integration out of the box
 
-### Privacy First
-- Wake word detection runs **100% on-device**
-- Speech recognition can run **entirely locally** (no cloud required)
-- No audio is ever sent to third parties
-- Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
-- **No analytics SDK, no crash-reporting SDK, no third-party telemetry of any kind** — nothing is collected, so there is nothing to opt out of
-- All processing happens on your tablet and your [Home Assistant](https://www.home-assistant.io/) instance
+### Set up the second tablet in one tap
+- **Guided onboarding** - A setup wizard walks you through Home Assistant connection, wake word, voice, and a Power Features step that auto-detects MQTT on your network
+- **Copy settings between tablets** - Set up your first tablet, then new tablets discover it over the network and import its configuration in one tap — no re-entering URLs, agents, or endpoints
 
-### Tablet-Friendly
+### Privacy
+The claim worth making is the specific one: **wake word detection and speech recognition run on the device.** Your audio never leaves the tablet. What travels is the transcript, only after the wake word, and only to the Home Assistant instance you configured.
+
+- **No analytics SDK, no crash-reporting SDK, no third-party telemetry of any kind** — nothing is collected, so there is nothing to opt out of
+- **No account, no subscription** — DashVoice doesn't have a login and there is nothing to sign up for
+- Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
+- Timers and announcements never leave the tablet at all
+
+What DashVoice deliberately doesn't claim: that nothing you say ever touches a cloud. That part is your choice. Your HA conversation agent may be a cloud LLM, your TTS endpoint may be hosted, and Music Assistant providers are usually streaming services. All three are configured by you, and all three can be local if you want them to be. See the [Privacy Policy](PRIVACY_POLICY.md).
+
+### Compatibility
+- Android 8.0 or newer; arm64 on Google Play, with a [legacy sideload build](#which-build-do-i-want) for 32-bit ARM
 - Works great on budget tablets (Samsung Galaxy Tab S7 FE, Lenovo Tab M10, etc.)
-- Optimized for wall-mounted kiosk use
-- Supports landscape and portrait orientations
+- The small streaming speech model runs on essentially any 64-bit device; the 0.6B high-accuracy models need roughly 7 GB of RAM and won't load below that
+- Optimized for wall-mounted kiosk use, landscape and portrait
 - Low power consumption in standby
 - OTA updates via HTTP API for headless deployments
 
-### Easy Multi-Tablet Setup
-- **Guided onboarding** - A setup wizard walks you through Home Assistant connection, wake word, voice, and a Power Features step that auto-detects MQTT on your network
-- **Copy settings between tablets** - Set up your first tablet, then new tablets discover it over the network and import its configuration in one tap — no re-entering URLs, agents, or endpoints
+---
+
+## Announcements & timers
+
+The two features that demo instantly and cost nothing to try. Both run entirely on the tablet — no conversation agent, no LLM, and no dependency on Home Assistant being up.
+
+**Announcements** broadcast to every DashVoice tablet in the house: a full-screen card, a chime, and the spoken message.
+
+- *"Hey Jarvis, announce that dinner is ready"*
+- *"Hey Jarvis, broadcast the movie is starting"*
+- *"Hey Jarvis, tell everyone it's time to leave"*
+
+Announcements need your tablets to share an MQTT broker — that's how they find each other. See the [MQTT setup guide](docs/setup/mqtt.md).
+
+**Timers** are native, named, and fully offline. Run several at once, ask how long is left, and get a full-screen alarm when one fires — dismiss it with a tap or by saying "stop".
+
+- *"Hey Jarvis, set a 10 minute timer"*
+- *"Hey Jarvis, set a pizza timer for twelve minutes"*
+- *"Hey Jarvis, set a timer for an hour and a half"*
+- *"Hey Jarvis, how much time is left on the pasta timer?"*
+
+And a few more things handled on the tablet, with everything else falling through to your Home Assistant agent untouched:
+
+| Say this | What happens |
+|---|---|
+| *"play LCD Soundsystem radio on the main floor"* | Artist radio, synced across the zone |
+| *"play the dinner party playlist in the kitchen"* | Playlists, albums and tracks by name |
+| *"turn it down"* / *"next song"* / *"stop the music"* | Zone-aware transport and volume |
+| *"turn on the kitchen lights"* | Passed straight to Home Assistant |
 
 ---
 
@@ -131,19 +177,44 @@ So we built DashVoice.
 
 ---
 
-## Requirements
+## Requirements & what's optional
 
-- Android tablet (Android 8.0+, arm64)
-- [Home Assistant](https://www.home-assistant.io/) instance on your network
-- Wi-Fi network
-- Optional: [MQTT broker](https://www.home-assistant.io/integrations/mqtt/) for real-time device control and automations
-- Optional: [Music Assistant](https://music-assistant.io/) for multiroom audio
+**Required**
+
+- An Android tablet running Android 8.0 or newer
+- A [Home Assistant](https://www.home-assistant.io/) instance on your network — HA is the brain; DashVoice is the face, the ears and the speaker
+- Wi-Fi
+
+**Optional**
+
+| | what it adds | without it |
+|---|---|---|
+| [Music Assistant](https://music-assistant.io/) | Multiroom audio and voice music control | Everything else works; the tablet just isn't a speaker |
+| [MQTT broker](https://www.home-assistant.io/integrations/mqtt/) | Device sensors and controls in HA, plus house-wide announcements | Voice, dashboard and timers are unaffected |
+| [Immich](https://immich.app/) / [ImmichFrame](https://github.com/3rob3/ImmichFrame) | Photo screensaver | Point the screensaver at any URL instead, or turn it off |
+
+**Optional, and entirely your call: the cloud.** Wake word and speech recognition are always on the device. Beyond that, the conversation agent that answers you is whichever one you configured in Home Assistant — that may be a local one or a cloud LLM. Text-to-speech may be local [Piper](https://github.com/rhasspy/piper) or a hosted OpenAI-compatible endpoint. Music Assistant providers are usually streaming services. DashVoice doesn't pick any of those for you, and a fully local setup is a supported configuration.
+
+---
+
+## Which build do I want?
+
+| | **Google Play** (recommended) | **Legacy sideload APK** |
+|---|---|---|
+| For | Anything from roughly the last several years | Older or 32-bit tablets, LineageOS on legacy hardware |
+| Architecture | arm64 (Play's 16 KB page-size requirement) | Adds 32-bit ARM (`armeabi-v7a`) |
+| Android | 8.0+ | 8.0+ |
+| Updates | Automatic | Manual — check back here |
+| Support | Supported | Best-effort, unsupported |
+| Get it | [Play Store](https://play.google.com/store/apps/details?id=com.dashvoice) | [v0.1.553-legacy](https://github.com/ecohash-co/dash-voice/releases/tag/v0.1.553-legacy) |
+
+Install from Google Play unless it refuses to install on your tablet. If it does refuse — usually a 32-bit device — take the legacy build. These are older, low-RAM devices, so voice works but runs slower, and DashVoice automatically selects its lightest on-device speech engine to fit. To sideload, enable "Install unknown apps" for your browser or file manager, then open the downloaded APK.
 
 ---
 
 ## Quick Start
 
-1. **Install DashVoice** from Google Play
+1. **Install DashVoice** from [Google Play](https://play.google.com/store/apps/details?id=com.dashvoice) (or the [legacy APK](#which-build-do-i-want) for older devices)
 2. **Complete onboarding** - connect to your [Home Assistant](https://www.home-assistant.io/)
 3. **Generate a Long-Lived Access Token** in Home Assistant ([instructions](https://www.home-assistant.io/docs/authentication/#your-account-profile))
 4. **Say "Hey Jarvis"** and start controlling your smart home!
@@ -186,11 +257,9 @@ DashVoice is built and maintained by one developer. If it's useful to you — es
 
 ## Older or 32-bit devices (LineageOS, Android 8.x)
 
-The Google Play build targets 64-bit ARM (Play's 16 KB page-size requirement). If your tablet is **older or 32-bit** — common with LineageOS on legacy hardware — and the Play build won't install, grab the **legacy sideload APK** instead:
+See [Which build do I want?](#which-build-do-i-want) above — the legacy sideload APK adds 32-bit ARM (`armeabi-v7a`) support for tablets the Play build can't reach.
 
-**[→ Latest legacy sideload release](https://github.com/ecohash-co/dash-voice/releases)**
-
-It includes 32-bit ARM (`armeabi-v7a`) support and runs on **Android 8.0+**. It's best-effort and unsupported — these are older, low-RAM devices, so voice runs but will be slower, and DashVoice automatically selects its lightest on-device engine to fit. Sideload it by enabling "Install unknown apps" for your browser or file manager.
+**[→ Latest legacy sideload release](https://github.com/ecohash-co/dash-voice/releases/tag/v0.1.553-legacy)**
 
 ---
 
