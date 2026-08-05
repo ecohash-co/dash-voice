@@ -86,7 +86,7 @@ The claim worth making is the specific one: **wake word detection and speech rec
 - **No analytics SDK, no crash-reporting SDK, no third-party telemetry of any kind** — nothing is collected, so there is nothing to opt out of
 - **No account, no subscription** — DashVoice doesn't have a login and there is nothing to sign up for
 - Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
-- Timers and announcements never leave the tablet at all
+- Timers run entirely on the tablet. Announcements go to your own MQTT broker, and to your Home Assistant if you've configured it — nowhere else
 
 What DashVoice deliberately doesn't claim: that nothing you say ever touches a cloud. That part is your choice. Your HA conversation agent may be a cloud LLM, your TTS endpoint may be hosted, and Music Assistant providers are usually streaming services. All three are configured by you, and all three can be local if you want them to be. See the [Privacy Policy](PRIVACY_POLICY.md).
 
@@ -102,7 +102,7 @@ What DashVoice deliberately doesn't claim: that nothing you say ever touches a c
 
 ## Announcements & timers
 
-The two features that demo instantly and cost nothing to try. Both run entirely on the tablet — no conversation agent, no LLM, and no dependency on Home Assistant being up.
+The two features that demo instantly and cost nothing to try. Neither needs a conversation agent, an LLM, or Home Assistant to be up. Timers run entirely on the tablet; announcements travel over your own MQTT broker, which is how the tablets find each other.
 
 **Announcements** broadcast to every DashVoice tablet in the house: a full-screen card, a chime, and the spoken message.
 
