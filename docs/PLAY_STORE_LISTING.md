@@ -4,9 +4,24 @@
 > change the listing, change it here too — otherwise the repo and the Console drift.
 
 ## App Name
-**DashVoice — Voice, Dashboard & Multiroom for Home Assistant**
 
-If the length is rejected: `DashVoice — Voice & Dashboard for Home Assistant`
+The app is **DashVoice**. This is the Play *listing title* — a separate, searchable
+field, **hard-capped at 30 characters**. It is currently just `DashVoice` (9), which
+tells the store nothing about what the app does, so the listing can't surface for
+searches like "home assistant voice".
+
+Candidates that fit:
+
+| chars | title |
+|---|---|
+| 25 | `DashVoice: Home Assistant` |
+| 27 | `DashVoice: HA Voice + Music` |
+| 28 | `DashVoice — HA Voice & Audio` |
+| 24 | `DashVoice — Voice for HA` |
+
+Recommendation: **`DashVoice: Home Assistant`** — "Home Assistant" is the term people
+actually search, and spending the budget on it beats describing features nobody is
+querying by name. Keep the brand first either way.
 
 ---
 
