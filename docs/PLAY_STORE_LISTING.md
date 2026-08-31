@@ -65,7 +65,7 @@ ANSWERS WITHOUT THE CLOUD
 WHOLE-HOME AUDIO
 
 • Each tablet registers as a speaker in Music Assistant
-• Synchronized playback across tablets, measured within about 50 ms
+• Synchronized playback across tablets (encrypted Sendspin from 0.1.587)
 • Ask for music by voice — "play LCD Soundsystem radio on the main floor" — including
   named zones you define, without needing an LLM agent
 • Now Playing overlay with album art and transport controls; group volume handled
@@ -74,7 +74,7 @@ WHOLE-HOME AUDIO
 A DASHBOARD WORTH MOUNTING
 
 • Any Home Assistant Lovelace dashboard, full-screen
-• Photo screensaver — point it at Immich/ImmichFrame or any URL
+• Photo screensaver — Immich/ImmichFrame or any URL; stays up during voice; Wand on the strip
 • Night mode with a dim red clock that preserves night vision
 • Auto-brightness from the ambient light sensor, with hysteresis so it doesn't flicker
 • Slide-out drawer for brightness, volume, mic mute and settings
@@ -105,6 +105,21 @@ Music Assistant is optional and only needed for audio features.
 
 Documentation and FAQ: github.com/ecohash-co/dash-voice
 Issues: github.com/ecohash-co/dash-voice/issues
+```
+
+---
+
+## What's new (0.1.587) — Play Console box, ≤500 characters
+
+```
+Your tablet is part of the house — not just a dashboard.
+
+• Encrypted Music Assistant speakers (Sendspin). First connect may create a new player; in that player’s Setup, allow playback without pairing. Leave “Allow legacy clients” on until that plays.
+• More reliable wake word after a quiet room
+• Photo screensaver stays up during voice; Wand on the strip
+• Optional camera JPEG for Frigate (off by default)
+• Stronger local HTTP API passwords
+• Android 16 ready (targetSdk 36)
 ```
 
 ---

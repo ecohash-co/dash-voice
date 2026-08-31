@@ -38,6 +38,13 @@ Your voice is processed either:
 
 We never send audio to third-party cloud services.
 
+### Is DashVoice "100% local and private"?
+**Wake word and speech recognition run on the tablet.** Microphone audio is not uploaded to Ecohash or to a DashVoice cloud — there isn't one.
+
+That is not the same as "nothing you say ever touches a network." After the transcript exists, DashVoice sends it to **your** Home Assistant. If that conversation agent is a cloud LLM, the text goes there because *you* configured it. TTS and Music Assistant work the same way. Timers stay on the device. Announcements stay on your MQTT (and HA if you use it).
+
+Nothing in the 0.1.587 release made this worse. Sendspin audio on your LAN is now **encrypted** (it used to be a plaintext WebSocket). Optional camera JPEG and Loki logging only happen if you turn them on, and they go to servers you name.
+
 ### Is my Home Assistant token secure?
 Yes. Your token is stored using Android's encrypted storage and only used to communicate with your Home Assistant instance.
 
@@ -108,7 +115,7 @@ Some commands are handled directly on the tablet, without Home Assistant's conve
 Yes! In settings, you can specify any Lovelace dashboard URL. The dashboard displays in a full-screen WebView.
 
 ### What is the screensaver?
-When idle, DashVoice can show a photo slideshow from your Immich server using ImmichFrame. It's a beautiful way to display family photos when you're not using voice commands.
+When idle, DashVoice can show a photo slideshow from your Immich server using ImmichFrame (or any URL). Photos stay up during a voice command. The strip can include Love, Wand, Fewer-like-this, Next, and Exit when you use rustFrame.
 
 ### What's the dim red clock?
 At night, DashVoice can show a dim red clock instead of the bright dashboard. Red light doesn't disrupt your sleep or night vision. Tap anywhere to wake it up.
@@ -150,10 +157,13 @@ Please include:
 ## Multiroom Audio
 
 ### How does multiroom audio work?
-DashVoice uses the [SendSpin protocol](https://github.com/music-assistant/aiosendspin) to receive synchronized audio streams from [Music Assistant](https://music-assistant.io/). Each tablet registers itself via mDNS and appears as a speaker in Music Assistant, where you can group tablets and control playback.
+DashVoice uses the [Sendspin protocol](https://github.com/Sendspin/aiosendspin) to receive synchronized audio streams from [Music Assistant](https://music-assistant.io/). Each tablet registers itself via mDNS and appears as a speaker in Music Assistant, where you can group tablets and control playback. From **0.1.587** that link is **encrypted** (Noise). In Music Assistant, open the player → **Setup** → allow playback **without pairing**. Leave **Allow legacy clients** on until that player has played a track.
+
+### Why did Music Assistant create a second "Kitchen DashVoice"?
+The encrypted identity is a new key, not the old MAC-looking id. Delete or ignore the old player once the 43-character id is playing. Don't turn off Allow legacy clients until then.
 
 ### Do I need Music Assistant for multiroom audio?
-Yes. Music Assistant is a free, open-source music player for Home Assistant that handles music sources (Spotify, local files, etc.) and sends synchronized audio to DashVoice tablets via the SendSpin protocol.
+Yes. Music Assistant is a free, open-source music player for Home Assistant that handles music sources (Spotify, local files, etc.) and sends synchronized audio to DashVoice tablets via Sendspin.
 
 ### Can I control music with voice commands?
 Yes — two ways:
@@ -188,13 +198,7 @@ No. Timers run entirely on the tablet and survive app restarts, so they work eve
 ## Future Plans
 
 ### What features are coming?
-We're working on:
-- Multi-turn conversations (follow-up questions without re-triggering the wake word)
-- TTS voice selection dropdown (browse available voices)
-- A Home Assistant integration that exposes each tablet as an `assist_satellite`, so HA automations can trigger announcements
-- Voice intercom (send your actual recorded voice between tablets)
-- AirPlay receiver support
-- And more based on your feedback!
+Still on the list: follow-up questions without the wake word, voice intercom (your recorded voice between tablets), and AirPlay. TTS voice pickers, announcements, native timers, and a Home Assistant integration are already in the current release.
 
 ### How can I request a feature?
 Open a feature request: [Request a Feature](https://github.com/ecohash-co/dash-voice/issues/new?template=feature_request.md)
