@@ -98,7 +98,7 @@ The Power Features step lets you turn on optional integrations — each one is a
 - **MQTT** - Exposes the tablet's sensors and controls to Home Assistant. DashVoice probes your HA instance and, if it finds the MQTT integration, shows a **"Detected"** badge and pre-fills the broker URL. See the [MQTT Setup guide](setup/mqtt.md).
 - **Loki Logging** - Ships logs to a Grafana Loki server for fleet-wide visibility. See the [Loki Setup guide](setup/loki.md).
 - **Motion / Presence** - Wake the screen when someone approaches, using motion, camera, or proximity detection.
-- **Camera Stream** - Expose the tablet's camera to Home Assistant.
+- **Camera Stream** - Optional JPEG (`/cam.jpg`) for *your* Frigate or Home Assistant. **Off until you enable it.** Frames then leave the tablet on your LAN because you asked them to.
 - **Kiosk Mode** - Lock the tablet to DashVoice for wall-mounted use.
 
 All of these are optional and can be changed later in **Settings → Power Features**.

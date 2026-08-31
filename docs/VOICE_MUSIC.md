@@ -22,7 +22,7 @@ What it can do:
 
 - [ ] [Home Assistant](https://www.home-assistant.io/) connected in DashVoice
 - [ ] [Music Assistant](https://music-assistant.io/) installed in Home Assistant, with at least one music provider (Spotify, Apple Music, local library, etc.)
-- [ ] Your tablet(s) visible as Music Assistant players — DashVoice's built-in SendSpin support does this automatically once multiroom audio is enabled (they appear in Music Assistant via mDNS, no manual setup)
+- [ ] Your tablet(s) visible as Music Assistant players — DashVoice's built-in [Sendspin](https://github.com/Sendspin/aiosendspin) support does this automatically once multiroom audio is enabled (mDNS, no IP). From **0.1.587** the link is encrypted. In Music Assistant: player → **Setup** → allow playback without pairing. Leave **Allow legacy clients** on until that player has played. The first encrypted connect may show a **new** player id (43 characters).
 
 Any Music Assistant player works as a target — DashVoice tablets, but also any other speakers Music Assistant manages.
 

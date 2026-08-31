@@ -1,13 +1,14 @@
 # DashVoice
 
-**Turn any Android tablet into a private smart display.**
+**Turn any Android tablet into a smart display that listens on the device.**
 
-DashVoice is a smart home voice assistant, a [Home Assistant](https://www.home-assistant.io/) dashboard, and a synchronized multiroom speaker in one app. Wake word and speech recognition run entirely on the tablet — your voice never leaves your network.
+DashVoice is a smart home voice assistant, a [Home Assistant](https://www.home-assistant.io/) dashboard, and a synchronized multiroom speaker in one app. Wake word and speech recognition run entirely on the tablet — **your microphone audio never leaves the device.** What you *do* with the transcript (your HA agent, TTS, music) is yours to keep local or send to a cloud you chose.
 
 Give the tablet in your drawer a second life: mount it on the wall, say *"Hey Jarvis, turn on the kitchen lights"*, and it just works. The tablet isn't only showing your smart home — it's part of it. It listens, it answers, it announces, it rings, and it plays music in sync with every other tablet in the house.
 
 [![Google Play](https://img.shields.io/badge/Google_Play-Available-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=com.dashvoice)
 [![Android](https://img.shields.io/badge/Android-8.0%2B-blue?style=for-the-badge&logo=android)](https://developer.android.com/)
+[![Release](https://img.shields.io/github/v/release/ecohash-co/dash-voice?style=for-the-badge)](https://github.com/ecohash-co/dash-voice/releases/latest)
 
 <p align="center">
   <a href="https://youtu.be/f7RMHgUMX_c">
@@ -25,9 +26,21 @@ DashVoice was born out of frustration. For years, we used [Fully Kiosk Browser](
 
 We wanted to say "Hey Jarvis, turn on the lights" and have it just work — without shipping the audio of our house to somebody's server, and without a monthly fee. Just a tablet on the wall that listens for a wake word and controls our smart home.
 
-Then we wanted music. Not just on one tablet, but synchronized across every room. So we added [SendSpin](https://github.com/music-assistant/aiosendspin) multiroom audio, and now every DashVoice tablet is also a speaker in your whole-home audio system.
+Then we wanted music. Not just on one tablet, but synchronized across every room. So we added [Sendspin](https://github.com/Sendspin/aiosendspin) multiroom audio, and now every DashVoice tablet is also a speaker in your whole-home audio system.
 
 So we built DashVoice.
+
+---
+
+## What's new (0.1.587 / sideload 0.1.588)
+
+- **Encrypted Sendspin** with Music Assistant 2.10 (Noise). Setup → allow playback without pairing; leave **Allow legacy clients** on until that player has played. First encrypted connect may mint a new player id.
+- **More reliable wake** after the room has been quiet for hours
+- **Screensaver stays up during voice**; **Wand** on the photo strip
+- **Optional** tablet camera JPEG for Frigate (off by default)
+- Stronger local HTTP API passwords; Android 16 (`targetSdk 36`)
+
+Full notes: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -52,7 +65,8 @@ See [Announcements & timers](#announcements--timers) below for the phrases that 
 
 ### Whole-home audio (multiroom)
 - **[Music Assistant](https://music-assistant.io/) integration** - Each tablet registers as a speaker in your whole-home audio system
-- **Synchronized playback** - Time-synced audio across DashVoice tablets using the [SendSpin protocol](https://github.com/music-assistant/aiosendspin), **measured within about 50 ms** across tablets
+- **Encrypted Sendspin** - From 0.1.587 the Music Assistant link uses Noise encryption on your LAN (not a plaintext WebSocket). Allow unpaired playback in MA; a pairing PIN is not required
+- **Synchronized playback** - Time-synced audio across DashVoice tablets using the [Sendspin protocol](https://github.com/Sendspin/aiosendspin). Plays in step across rooms; start-to-start timing varies, so we don't advertise a millisecond bound
 - **Voice music control** - *"play LCD Soundsystem radio on the main floor"*: on-device music intents drive Music Assistant search, radio mode, and synchronized multi-room zones — no LLM needed ([guide](docs/VOICE_MUSIC.md))
 - **Voice-controlled zones** - Group any rooms into named zones ("main floor", "everywhere") and start synchronized playback by voice
 - **Now Playing overlay** - Glassmorphic UI with album art, playback controls, and track info
@@ -67,7 +81,8 @@ See [Announcements & timers](#announcements--timers) below for the phrases that 
 - **Night mode** - Dim red clock display (iOS StandBy-style, preserves night vision)
 - **Auto-brightness** - Logarithmic brightness curve with configurable dim/wake thresholds and ambient light hysteresis
 - **Slide-out control drawer** - Quick access to brightness, volume, mic mute, screensaver, and settings
-- **Photo feedback strip** - Heart or skip a screensaver photo without leaving the screensaver
+- **Photo feedback strip** - Love, Wand, Fewer-like-this, Next, Exit — without leaving the screensaver. Photos stay up during a voice command
+- **Optional camera JPEG** - Off by default. When enabled, `/cam.jpg` is for *your* Frigate or Home Assistant, not us
 
 ### Fits into Home Assistant properly
 - **MQTT auto-discovery** - Device sensors and controls appear automatically in Home Assistant
@@ -88,7 +103,7 @@ The claim worth making is the specific one: **wake word detection and speech rec
 - Secrets stored in Android's encrypted SharedPreferences (AES-256, Keystore-backed)
 - Timers run entirely on the tablet. Announcements go to your own MQTT broker, and to your Home Assistant if you've configured it — nowhere else
 
-What DashVoice deliberately doesn't claim: that nothing you say ever touches a cloud. That part is your choice. Your HA conversation agent may be a cloud LLM, your TTS endpoint may be hosted, and Music Assistant providers are usually streaming services. All three are configured by you, and all three can be local if you want them to be. See the [Privacy Policy](PRIVACY_POLICY.md).
+What DashVoice deliberately doesn't claim: **"100% local & private."** That slogan was never accurate, and nothing in 0.1.587 made it less true. Wake word and ASR are on-device. After that, *you* choose the rest: the HA conversation agent may be a cloud LLM, TTS may be hosted, Music Assistant providers are usually streaming services, and optional Loki/camera-stream send data to servers you named. All of that can be fully local. See the [Privacy Policy](PRIVACY_POLICY.md).
 
 ### Compatibility
 - Android 8.0 or newer; arm64 on Google Play, with a [legacy sideload build](#which-build-do-i-want) for 32-bit ARM
@@ -296,7 +311,7 @@ version number.
 │                           └─────────────────┘               │
 │                                                              │
 │  ┌─────────────────┐      ┌─────────────────┐               │
-│  │    SendSpin     │      │   Now Playing   │               │
+│  │    Sendspin     │      │   Now Playing   │               │
 │  │  Audio Client   │─────▶│    Overlay      │               │
 │  └─────────────────┘      └─────────────────┘               │
 │                                                              │
@@ -336,7 +351,7 @@ DashVoice works great with these open-source projects:
 |---------|-------------|
 | [Immich](https://immich.app/) | Self-hosted photo management |
 | [ImmichFrame](https://github.com/3rob3/ImmichFrame) | Digital photo frame for Immich |
-| [SendSpin / aiosendspin](https://github.com/music-assistant/aiosendspin) | Multiroom audio sync protocol |
+| [Sendspin / aiosendspin](https://github.com/Sendspin/aiosendspin) | Multiroom audio sync protocol |
 | [Fully Kiosk Browser](https://www.fully-kiosk.com/) | The app that inspired DashVoice's dashboard features |
 
 ---
